@@ -6,28 +6,33 @@ public class GeneralTree {
 	private class Node {
 
 		public Node father;
-		public Integer element;
+		public String element;
+		public int terrace;
 		public ArrayList<Node> subtrees;
 
-		public Node(Integer element) {
+		public Node(String element, int terrace) {
 			father = null;
 			this.element = element;
+			this.terrace = terrace;
 			subtrees = new ArrayList<>();
 		}
 
-		public Node(Integer element, Node father) {
+		public Node(Node father,String element, int terrace) {
 			this.father = father;
 			this.element = element;
+			this.terrace = terrace;
 			subtrees = new ArrayList<>();
 		}
 
 		public void addSubtree(Node n) {
 			n.father = this;
+			//String child = n.element;
 			subtrees.add(n);
 		}
 
 		public boolean removeSubtree(Node n) {
 			n.father = null;
+			//String child = n.element;
 			return subtrees.remove(n);
 		}
 
@@ -39,12 +44,16 @@ public class GeneralTree {
 		}
 
 		public int getSubtreesSize() {
-			return subtrees.size();
+			return this.subtrees.size();
+		}
+
+		public int getTerrace() {
+			return this.terrace;
 		}
 	}
 
 	// Atributos
-	private Node root;
+	public Node root;
 	private int count;
 
 	// Metodos
@@ -53,21 +62,21 @@ public class GeneralTree {
 		count = 0;
 	}
 
-	public Integer getRoot() {
+	public String getRoot() {
 		if (isEmpty()) {
 			throw new EmptyTreeException("GetRoot failure");
 		}
 		return root.element;
 	}
 
-	public void setRoot(Integer element) {
+	public void setRoot(String element) {
 		if (isEmpty()) {
 			throw new EmptyTreeException("SetRoot failure");
 		}
 		root.element = element;
 	}
 
-	public boolean isRoot(Integer element) {
+	public boolean isRoot(String element) {
 		if (root != null) {
 			if (root.element.equals(element)) {
 				return true;
@@ -89,7 +98,7 @@ public class GeneralTree {
 		count = 0;
 	}
 
-	public Integer getFaher(Integer element) {
+	public String getFather(String element) {
 		Node n = searchNodeRef(element, root);
 		if (n == null || n.father == null) {
 			return null;
@@ -98,12 +107,12 @@ public class GeneralTree {
 		}
 	}
 
-	public boolean contains(Integer element) {
+	public boolean contains(String element) {
 		Node nAux = searchNodeRef(element, root);
 		return (nAux != null);
 	}
 
-	private Node searchNodeRef(Integer element, Node target) {
+	private Node searchNodeRef(String element, Node target) {
 		Node res = null;
 		if (target != null) {
 			if (element.equals(target.element)) {
@@ -121,35 +130,47 @@ public class GeneralTree {
 		return res;
 	}
 
-	public boolean add(Integer element, Integer father) {
-		Node n = new Node(element);
-		Node nAux = null;
+	public boolean add(String father,String element,  int terrace) {
+		Node n = new Node(element, terrace);
+		//Node nAux;
 		boolean res = false;
-		if (father == null) {   // Insere na raiz
-			if (root != null) { //Atualiza o pai da raiz
-				n.addSubtree(root);
-				root.father = n;
-			}
-			root = n;   //Atualiza a raiz
+		if (root == null) {
+			root = n;
 			res = true;
-		} else {        //Insere no meio da Árvore
-			nAux = searchNodeRef(father, root);
+		} else {
+			Node nAux = searchNodeRef(father, root);
 			if (nAux != null) {
 				nAux.addSubtree(n);
+				n.father = nAux;
 				res = true;
 			}
 		}
+//		if (father == null) {   // Insere na raiz
+//			if (root != null) { //Atualiza o pai da raiz
+//				n.addSubtree(root);
+//				root.father = n;
+//			}
+//			root = n;   //Atualiza a raiz
+//			res = true;
+//		}
+//		} else {        //Insere no meio da Árvore
+//			nAux = searchNodeRef(father, root);
+//			if (nAux != null) {
+//				nAux.addSubtree(n);
+//				res = true;
+//			}
+//		}
 		count++;
 		return res;
 	}
 
-	public ArrayList<Integer> positionsPre() {
-		ArrayList<Integer> lista = new ArrayList<>();
+	public ArrayList<String> positionsPre() {
+		ArrayList<String> lista = new ArrayList<>();
 		positionsPreAux(root, lista);
 		return lista;
 	}
 
-	private void positionsPreAux(Node n, ArrayList<Integer> lista) {
+	private void positionsPreAux(Node n, ArrayList <String> lista) {
 		if (n != null) {
 			lista.add(n.element);
 			for (int i = 0; i < n.getSubtreesSize(); i++) {
@@ -158,8 +179,8 @@ public class GeneralTree {
 		}
 	}
 
-	public ArrayList<Integer> positionsWidth() {
-		ArrayList<Integer> lista = new ArrayList<>();
+	public ArrayList<String> positionsWidth() {
+		ArrayList<String> lista = new ArrayList<>();
 
 		QueueM<Node> fila = new QueueM<>();
 		Node atual = null;

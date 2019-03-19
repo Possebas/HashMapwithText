@@ -3,15 +3,15 @@ public class LinkedListM {
 	// Classe interna Node
 	private class Node {
 
-		public char element;
+		public String element;
 		public Node next;
 
-		public Node(char element) {
+		public Node(String element) {
 			this.element = element;
 			next = null;
 		}
 
-		public Node(char element, Node next) {
+		public Node(String element, Node next) {
 			this.element = element;
 			this.next = next;
 		}
@@ -23,7 +23,6 @@ public class LinkedListM {
 	private Node tail;
 	// Contador para a quantidade de elementos que a lista contem.
 	private int count;
-
 	/**
 	 * Construtor da lista
 	 */
@@ -38,7 +37,7 @@ public class LinkedListM {
 	 *
 	 * @param element elemento a ser adicionado ao final da lista
 	 */
-	public void add(char element) {
+	public void add(String element) {
 		Node aux = new Node(element);
 		if (head == null) {
 			head = aux;
@@ -56,7 +55,7 @@ public class LinkedListM {
 	 * @param element elemento a ser inserido
 	 * @throws IndexOutOfBoundsException se (index < 0 || index > size())
 	 */
-	public void add(int index, char element) {
+	public void add(int index, String element) {
 		if (index < 0 || index > size()) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -89,7 +88,7 @@ public class LinkedListM {
 	 * @return o elemento da posicao especificada
 	 * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
 	 */
-	public char get(int index) {
+	public String get(int index) {
 		if ((index < 0) || (index >= count)) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -111,7 +110,7 @@ public class LinkedListM {
 	 * @return o elemento armazenado anteriormente na posicao da lista
 	 * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
 	 */
-	public char set(int index, char element) {
+	public String set(int index, String element) {
 		if ((index < 0) || (index >= count)) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -119,7 +118,7 @@ public class LinkedListM {
 		for (int i = 0; i < index; i++) {
 			aux = aux.next;
 		}
-		char tmp = aux.element;
+		String tmp = aux.element;
 		aux.element = element;
 		return tmp;
 
@@ -131,14 +130,10 @@ public class LinkedListM {
 	 * @param element o elemento a ser removido
 	 * @return true se a lista contem o elemento especificado
 	 */
-	public boolean remove(char element) {
-		if (Character.isWhitespace(element)) {
-			return false;
-		}
+	public boolean remove(String element) {
 		if (count == 0) {
 			return false;
 		}
-
 		if (head.element == element) { // remocao do primeiro
 			head = head.next;
 			if (count == 1) { // se havia so um elemento na lista
@@ -203,7 +198,7 @@ public class LinkedListM {
 	 * @return o elemento que foi removido da lista
 	 * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
 	 */
-	public char removeByIndex(int index) {
+	public String removeByIndex(int index) {
 		if (index < 0 || index >= count) {
 			throw new IndexOutOfBoundsException();
 		}
@@ -223,7 +218,7 @@ public class LinkedListM {
 			aux = aux.next;
 			c++;
 		}
-		char element = aux.next.element;
+		String element = aux.next.element;
 		if (tail == aux.next) {
 			tail = aux;
 		}
@@ -240,11 +235,11 @@ public class LinkedListM {
 	 * @return o indice da primeira ocorrencia do elemento na lista, ou -1 se a
 	 * lista nao contem o elemento
 	 */
-	public int indexOf(Integer element) {
+	public int indexOf(String element) {
 		int index = 0;
 		Node aux = head;
 		while (aux != null) {
-			if (aux.element == element) {
+			if (aux.element.equals(element)) {
 				return (index);
 			}
 			aux = aux.next;
@@ -259,10 +254,10 @@ public class LinkedListM {
 	 * @param element o elemento a ser testado
 	 * @return true se a lista contem o elemento especificado
 	 */
-	public boolean contains(Integer element) {
+	public boolean contains(String element) {
 		Node aux = head;
 		while (aux != null) {
-			if (aux.element == element) {
+			if (aux.element.equals(element)) {
 				return (true);
 			}
 			aux = aux.next;
