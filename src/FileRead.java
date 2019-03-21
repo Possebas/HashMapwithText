@@ -27,18 +27,19 @@ public class FileRead {
 			// posicao do loop para a variavel linha.
 			while ( ( line = bufferedReader.readLine() ) != null) {
 				//Aqui imprimimos a linha
-				String[] array = line.split(" ");
-				int terrace = Integer.valueOf(array[2]);
-				tree.add(array[0], array[1], terrace);
+				System.out.println(line);
+//				String[] array = line.split(" ");
+//				int terrace = Integer.valueOf(array[2]);
+//				tree.add(array[0], array[1], terrace);
 				//System.out.println(tree.getRoot());
 				//populateTree(line);
 				//System.out.println(array[0]);
 				//System.out.println(array[1]);
 				//System.out.println(array[2]);
-				//System.out.println(linha);
+
 			}
 			//System.out.println(tree.positionsPre());
-			System.out.println(tree.getRoot());
+			//System.out.println(tree.getRoot());
 			//liberamos o fluxo dos objetos ou fechamos o arquivo
 			fileReader.close();
 			bufferedReader.close();

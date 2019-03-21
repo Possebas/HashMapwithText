@@ -130,39 +130,27 @@ public class GeneralTree {
 		return res;
 	}
 
-	public boolean add(String father,String element,  int terrace) {
-		Node n = new Node(element, terrace);
-		//Node nAux;
-		boolean res = false;
-		if (root == null) {
-			root = n;
-			res = true;
-		} else {
-			Node nAux = searchNodeRef(father, root);
-			if (nAux != null) {
-				nAux.addSubtree(n);
-				n.father = nAux;
-				res = true;
-			}
-		}
-//		if (father == null) {   // Insere na raiz
-//			if (root != null) { //Atualiza o pai da raiz
-//				n.addSubtree(root);
-//				root.father = n;
-//			}
-//			root = n;   //Atualiza a raiz
-//			res = true;
-//		}
-//		} else {        //Insere no meio da Árvore
-//			nAux = searchNodeRef(father, root);
-//			if (nAux != null) {
-//				nAux.addSubtree(n);
-//				res = true;
-//			}
-//		}
-		count++;
-		return res;
-	}
+	public boolean add(String father, String element, int terrace) {
+        Node n = new Node(element,terrace);
+        Node nAux;
+        boolean res = false;
+        if (father == null) {   // Insere na raiz 	
+            if (root != null) { //Atualiza o pai da raiz
+                n.addSubtree(root);
+                root.father = n;
+            }
+            root = n;   //Atualiza a raiz
+            res = true;
+        } else {        //Insere no meio da Árvore
+            nAux = searchNodeRef(father, root);
+            if (nAux != null) {
+                nAux.addSubtree(n);
+                res = true;
+            }
+        }
+        count++;
+        return res;
+    }
 
 	public ArrayList<String> positionsPre() {
 		ArrayList<String> lista = new ArrayList<>();
