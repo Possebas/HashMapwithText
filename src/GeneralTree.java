@@ -47,14 +47,26 @@ public class GeneralTree {
 			return this.subtrees.size();
 		}
 
+		public void setTerrace(int terrace) {
+			this.terrace = terrace;
+		}
+
 		public int getTerrace() {
 			return this.terrace;
 		}
-	}
-
+}
 	// Atributos
 	public Node root;
 	private int count;
+	public int terraceFather;
+
+	public int getTerraceFather() {
+		return terraceFather;
+	}
+
+	public void setTerraceFather(int terraceFather) {
+		this.terraceFather = terraceFather;
+	}
 
 	// Metodos
 	public GeneralTree() {
@@ -68,7 +80,6 @@ public class GeneralTree {
 		}
 		return root.element;
 	}
-
 	public void setRoot(String element) {
 		if (isEmpty()) {
 			throw new EmptyTreeException("SetRoot failure");
@@ -130,26 +141,20 @@ public class GeneralTree {
 		return res;
 	}
 
-	public boolean add(String father, String element, int terrace) {
+	public void add(String father, String element, int terrace) {
         Node n = new Node(element,terrace);
         Node nAux;
-        boolean res = false;
-        if (father == null) {   // Insere na raiz 	
-            if (root != null) { //Atualiza o pai da raiz
-                n.addSubtree(root);
-                root.father = n;
-            }
-            root = n;   //Atualiza a raiz
-            res = true;
-        } else {        //Insere no meio da Árvore
-            nAux = searchNodeRef(father, root);
-            if (nAux != null) {
-                nAux.addSubtree(n);
-                res = true;
-            }
+        if(root == null){
+        	Node nPatrono = new Node(father,terrace);
+        	nPatrono.addSubtree(n);
+        	root = nPatrono;
+        } else {
+        	nAux = searchNodeRef(father, root);
+        	if (nAux != null){
+        		nAux.addSubtree(n);
+	        }
         }
         count++;
-        return res;
     }
 
 	public ArrayList<String> positionsPre() {
