@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GeneralTree {
 
@@ -59,6 +60,7 @@ public class GeneralTree {
 	public Node root;
 	private int count;
 	public int terraceFather;
+
 
 	public int getTerraceFather() {
 		return terraceFather;
@@ -145,7 +147,7 @@ public class GeneralTree {
         Node n = new Node(element,terrace);
         Node nAux;
         if(root == null){
-        	Node nPatrono = new Node(father,terrace);
+        	Node nPatrono = new Node(father,0);
         	nPatrono.addSubtree(n);
         	root = nPatrono;
         } else {
@@ -172,23 +174,37 @@ public class GeneralTree {
 		}
 	}
 
-	public ArrayList<String> positionsWidth() {
-		ArrayList<String> lista = new ArrayList<>();
+//	public LinkedList<Node> listChild() {
+//		listChildAux(root, list);
+//		return list;
+//	}
+//
+//	private void listChildAux(Node n, LinkedList<Node> list) {
+//		if (n != null) {
+//			list.add(n);
+//			for (int i = 0; i < n.getSubtreesSize(); i++) {
+//				listChildAux(n.getSubtree(i), list);
+//			}
+//		}
+//	}
 
-		QueueM<Node> fila = new QueueM<>();
-		Node atual = null;
-
-		if (root != null) {
-			fila.enqueue(root);
-			while (!fila.isEmpty()) {
-				atual = fila.dequeue();
-				lista.add(atual.element);
-				for (int i = 0; i < atual.getSubtreesSize(); i++) {
-					fila.enqueue(atual.getSubtree(i));
-				}
-			}
-		}
-		return lista;
-	}
+//	public ArrayList<String> positionsWidth() {
+//		ArrayList<String> lista = new ArrayList<>();
+//
+//		QueueM<Node> fila = new QueueM<>();
+//		Node atual = null;
+//
+//		if (root != null) {
+//			fila.enqueue(root);
+//			while (!fila.isEmpty()) {
+//				atual = fila.dequeue();
+//				lista.add(atual.element);
+//				for (int i = 0; i < atual.getSubtreesSize(); i++) {
+//					fila.enqueue(atual.getSubtree(i));
+//				}
+//			}
+//		}
+//		return lista;
+//	}
 
 }

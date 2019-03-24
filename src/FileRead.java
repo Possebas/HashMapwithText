@@ -7,7 +7,7 @@ public class FileRead {
 
 	public void process(String cTeste) {
 		File arq = new File("C:\\Users\\Gustavo\\Desktop\\Algoritmos e Estrutura de Dados II\\T1-TriboBarbara\\casos", cTeste);
-		System.out.println("\nConteúdo do arquivo texto:\n");
+		System.out.println("\nCaso de teste escolhido foi: "+cTeste+"\n");
 		try {
 			//Indicamos o arquivo que será lido
 			FileReader fileReader = new FileReader(arq);
@@ -18,7 +18,6 @@ public class FileRead {
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String first = bufferedReader.readLine();
 			int valueF = Integer.valueOf(first);
-			tree.setTerraceFather(valueF);
 			//System.out.println("Primeiro valor: "+ valueF);
 			//String que irá receber cada linha do arquivo
 			String line = "";
@@ -26,6 +25,7 @@ public class FileRead {
 			// enquanto ele seja diferente de null.
 			//O método readLine() devolve a linha na
 			// posicao do loop para a variavel linha.
+			long tempoInicio = System.currentTimeMillis();
 			while ( ( line = bufferedReader.readLine() ) != null) {
 				//Aqui imprimimos a linha
 				//System.out.println(line);
@@ -34,7 +34,12 @@ public class FileRead {
 				tree.add(array[0], array[1], terrace);
 
 			}
-			System.out.println(tree.positionsPre());
+			tree.setTerraceFather(valueF);
+			System.out.println("Árvore lida de forma pré-ordem -> "+tree.positionsPre());
+//			System.out.println("Filhosssssssss: "+tree.list);
+
+			long tempoFinal = System.currentTimeMillis();
+			System.out.println("\nTempo total de execução: "+(tempoFinal-tempoInicio)+" em segundos");
 //			System.out.println("RAÍZ: "+ tree.getRoot());
 //			System.out.println("Quantidade de terras do pai principal(raíz): "+tree.getTerraceFather());
 //			System.out.println("Pai de Docrenlax é: "+tree.getFather("Rimvingnipanclox"));
