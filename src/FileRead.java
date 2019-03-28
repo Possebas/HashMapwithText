@@ -6,7 +6,7 @@ import java.io.IOException;
 public class FileRead {
 
 	public void process(String cTeste) {
-		File arq = new File("C:\\Users\\Gustavo\\Desktop\\Algoritmos e Estrutura de Dados II\\T1-TriboBarbara\\casos", cTeste);
+		File arq = new File("C:\\Users\\1513 IRON\\.git\\T1-TriboBarbara\\casos", cTeste);
 		System.out.println("\nCaso de teste escolhido foi: "+cTeste+"\n");
 		try {
 			//Indicamos o arquivo que será lido
@@ -35,11 +35,11 @@ public class FileRead {
 
 			}
 			tree.setTerraceFather(valueF);
-			System.out.println("Árvore lida de forma pré-ordem -> "+tree.positionsPre());
 //			System.out.println("Filhosssssssss: "+tree.list);
 
 			long tempoFinal = System.currentTimeMillis();
-			System.out.println("\nTempo total de execução: "+(tempoFinal-tempoInicio)+" em segundos");
+			long tempoTotal = tempoFinal-tempoInicio;
+			System.out.println("\nTempo total de execução: " +(tempoTotal / 1000)+ " segundos");
 //			System.out.println("RAÍZ: "+ tree.getRoot());
 //			System.out.println("Quantidade de terras do pai principal(raíz): "+tree.getTerraceFather());
 //			System.out.println("Pai de Docrenlax é: "+tree.getFather("Rimvingnipanclox"));
