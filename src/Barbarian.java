@@ -3,7 +3,7 @@ public class Barbarian {
     private String father;
     double terrace;
 
-    public Barbarian(String father, String name, double terrace)
+    public Barbarian(String name, String father, double terrace)
     {
         this.name = name;
         this.father = father;

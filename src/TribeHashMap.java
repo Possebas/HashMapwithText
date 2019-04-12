@@ -1,51 +1,63 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class TribeHashMap
 {
-    private HashMap<String, ArrayList<String>> content;
+    private java.util.HashMap<String, ArrayList<String>> dados;
 
-    public TribeHashMap() {
-        content = new HashMap<>();
+    public TribeHashMap()
+    {
+        dados = new java.util.HashMap<>();
     }
 
-    public ArrayList<String> get (String chave) {
-        return content.get(chave);
-    }
-
-    public void put (String key, String value) {
-        if(content.containsKey(key)) {
-            ArrayList<String> aux = content.get(key);
-            aux.add(value);
-            content.remove(key);
-            content.put(key, aux);
-        } else {
-            ArrayList<String> values2 = new ArrayList<>();
-            values2.add(value);
-            content.put(key, values2);
-        }
-    }
-
-    public ArrayList<Barbarian> calculate(String father, HashMap<String, Barbarian> warriors, ArrayList<Barbarian> leaves) {
-        Barbarian maiorFilho = new Barbarian("","",0);
-        ArrayList<String> sons = content.get(father);
-        if(sons == null)
+    public void put (String chave, String valor)
+    {
+        if(dados.containsKey(chave))
         {
-            leaves.add(warriors.get(father));
+            ArrayList<String> aux = dados.get(chave);
+            aux.add(valor);
+            dados.remove(chave);
+            //System.out.println("pai : " + chave + "  filhos: " + aux + "\n");
+            dados.put(chave, aux);
         }
-        else {
-            for(String s : sons) {
-                double terrasFilho = warriors.get(s).getTerrace();
-                double terrasPai = warriors.get(father).getTerrace();
-                Barbarian aux = new Barbarian(s, father, terrasFilho + (terrasPai/sons.size()));
-                if(aux.getTerrace() > maiorFilho.getTerrace())
-                    maiorFilho = aux;
-                warriors.remove(s);
-                warriors.put(s, aux);
-                calculate(s, warriors, leaves);
+        else
+        {
+            ArrayList<String> valores = new ArrayList<>();
+            valores.add(valor);
+            dados.put(chave, valores);
+        }
+    }
+
+    public ArrayList<String> get (String chave)
+    {
+        return dados.get(chave);
+    }
+
+    public ArrayList<Barbarian> calcula(String father, java.util.HashMap<String, Barbarian> barbaros, ArrayList<Barbarian> folhas)
+    {
+        Barbarian maior = new Barbarian("","",0);
+        ArrayList<String> filhos = dados.get(father);
+        if(filhos == null)
+        {
+            folhas.add(barbaros.get(father));
+        }
+        else
+        {
+            for(String s : filhos)
+            {
+                double terrasFilho = barbaros.get(s).getTerrace();
+                double terrasPai = barbaros.get(father).getTerrace();
+                Barbarian aux = new Barbarian(s, father, terrasFilho + (terrasPai/filhos.size()));
+                if(aux.getTerrace() > maior.getTerrace())
+                    maior = aux;
+                barbaros.remove(s);
+                barbaros.put(s, aux);
+                calcula(s, barbaros, folhas);
             }
         }
 
-        return leaves;
+        return folhas;
     }
+
 }

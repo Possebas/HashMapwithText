@@ -13,8 +13,8 @@ public class FileRead {
 
 		HashMap<String, Barbarian> warriors = new HashMap<>();
 		TribeHashMap nodes = new TribeHashMap();
-		HashSet<String> fathers = new HashSet<>(); //guarda o nome de todos os guerreiros que tem filhos
-		HashSet<String> childs = new HashSet<>(); //guarda o nome de todos os guerreiros que possuem um pai
+		HashSet<String> fathers = new HashSet<>(); //guarda o nome de todos os barbaros que possuem filhos
+		HashSet<String> childs = new HashSet<>(); //guarda o nome de todos os barbaros que possuem pai
 
 		String nome;
 		String pai;
@@ -32,16 +32,15 @@ public class FileRead {
 			// oferece o método de leitura readLine()
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			String first = bufferedReader.readLine();
-			String line =  "";
+			//String que irá receber cada linha do arquivo
+			String line = "";
 			//Fazemos um loop linha a linha no arquivo,
 			// enquanto ele seja diferente de null.
 			//O método readLine() devolve a linha na
-			// posicao do loop para a variavel line.
+			// posicao do loop para a variavel linha.
+			int count = 0;
 			while (bufferedReader.ready()) {
 				//Aqui imprimimos a linha
-				//System.out.println(line);
-
-
 				valueF = Integer.valueOf(first);
 				line = bufferedReader.readLine();
 				String[] array = line.split(" ");
@@ -54,8 +53,8 @@ public class FileRead {
 
 				warriors.put(nome, new Barbarian(pai, nome, terrace));
 				nodes.put(pai, nome);
+				count ++;
 			}
-
 			//liberamos o fluxo dos objetos ou fechamos o arquivo
 			fileReader.close();
 			bufferedReader.close();
@@ -63,7 +62,6 @@ public class FileRead {
 			e.printStackTrace();
 		}
 
-		//Verifica a existência do primeiro guerreiro da tribo
 		String raiz = "";
 		for(String p : fathers)
 		{
@@ -72,7 +70,7 @@ public class FileRead {
 		}
 		warriors.put(raiz, new Barbarian(raiz, null, valueF));
 		ArrayList<Barbarian> folhas = new ArrayList<>();
-		folhas = nodes.calculate(raiz, warriors, folhas);
+		folhas = nodes.calcula(raiz, warriors, folhas);
 
 		Barbarian maior = new Barbarian("","",0);
 		for(Barbarian b : folhas)
@@ -86,6 +84,6 @@ public class FileRead {
 
 		long tempoFinal = System.currentTimeMillis();
 		long tempoTotal = tempoFinal-tempoInicio;
-		System.out.println("\nTempo total de execução: " +tempoTotal+ " milisegundos");
+		System.out.println("\nTempo total de execução: " +tempoTotal+ " milissegundos");
 	}
 }

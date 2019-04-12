@@ -47,14 +47,18 @@ public class GeneralTree {
 	private int count;
 	public int terraceFather;
 
+	public void setTerraceFather(int terraceFather) {
+		this.terraceFather = terraceFather;
+	}
+
 	// Metodos
 	public GeneralTree() {
 		root = null;
 		count = 0;
 	}
 
-	public boolean leaf(String name) {
-		Node n = searchNodeRef(name, root);
+	public boolean leaf(String nome) {
+		Node n = searchNodeRef(nome, root);
 		if (n != null) {
 			return n.getSubtreesSize() == 0;
 		}
@@ -99,19 +103,18 @@ public class GeneralTree {
 		return res;
 	}
 
-	public void add(String root, TribeHashMap map, HashMap<String, Barbarian> guerreiros) {
+	public void add(String root, TribeHashMap map, HashMap<String, Barbarian> warriors) {
 		String father = root;
 		ArrayList<String> Tribetree;
 		Tribetree = map.get(father);
 		if (Tribetree != null) {
 			for (String s : Tribetree) {
-				add(father,s, guerreiros.get(s).getTerrace());
+				add(father,s, warriors.get(s).getTerrace());
 			}
-
 			Node aux = searchNodeRef(father, this.root);
 			int qntChild = aux.getSubtreesSize();
 			for (int i = 0; i < qntChild; i++) {
-				add(aux.getSubtree(i).element, map, guerreiros);
+				add(aux.getSubtree(i).element, map, warriors);
 			}
 		}
 	}
@@ -140,48 +143,27 @@ public class GeneralTree {
 		return res;
 	}
 
-	private double terraRecebida(Node n, double terraceRcv) {
+	private double calculaTerraRec(Node n, double terras) {
 		if (n.isRoot())
-			return terraceRcv + n.terrace / n.getSubtreesSize();
+			return terras + n.terrace / n.getSubtreesSize();
 		else {
-			return terraRecebida(n.father, (terraceRcv + (n.father.terrace / n.father.getSubtreesSize())));
+			return calculaTerraRec(n.father, (terras + (n.father.terrace / n.father.getSubtreesSize())));
 		}
 	}
 
-	public double calculaTerra()
-	{
+	public double calculaTerra() {
 		double maior = 0;
-		ArrayList<Node> nodofolha = getNodosFolhas();
-		for(Node n: nodofolha) {
-			double terraceRec = n.terrace;
-			terraceRec = terraRecebida(n, terraceRec);
-			if(terraceRec > maior)
-				maior = terraceRec;
+		ArrayList<Node> folhas = getLeaf();
+		for (Node n : folhas) {
+			double terras = n.terrace;
+			terras = calculaTerraRec(n, terras);
+			if (terras > maior)
+				maior = terras;
 		}
 		return maior;
 	}
-
-	private ArrayList<Node> getNodosFolhas()
-	{
-		ArrayList<Node> nleaf = new ArrayList<Node>();
-		getFolhaRecebido(root, nleaf);
-		return nleaf;
-	}
-
-	private void getFolhaRecebido(Node n, ArrayList<Node> nodeLeaf) {
-		if (n != null ){
-			if (n.getSubtreesSize() == 0)
-				nodeLeaf.add(n);
-			else {
-				for(int i=0; i<n.getSubtreesSize(); i++) {
-					getFolhaRecebido(n.getSubtree(i), nodeLeaf);
-				}
-			}
-		}
-
-	}
-
-	public ArrayList<String> positionsPre() {
+}
+	/**public ArrayList<String> positionsPre() {
 		ArrayList<String> lista = new ArrayList<>();
 		positionsPreAux(root, lista);
 		return lista;
@@ -195,4 +177,4 @@ public class GeneralTree {
 			}
 		}
 	}
-}
+*/
