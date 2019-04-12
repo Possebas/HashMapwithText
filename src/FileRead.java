@@ -20,7 +20,7 @@ public class FileRead {
 		String name,dad;
 		double valueF = 0;
 		//C:\Users\1513 IRON\.git\T1-TriboBarbara\casos
-		File arq = new File("C:\\Users\\1513 IRON\\.git\\T1-TriboBarbara\\casos", cTeste);
+		File arq = new File("C:\\Users\\Gustavo\\Desktop\\Algoritmos e Estrutura de Dados II\\T1-TriboBarbara\\casos", cTeste);
 	
 		System.out.println("\nCaso de teste escolhido foi: "+cTeste+"\n");
 
