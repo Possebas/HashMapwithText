@@ -14,13 +14,13 @@ public class FileRead {
 
 		HashMap<String, Barbarian> warriors = new HashMap<>();
 		TribeHashMap nodes = new TribeHashMap();
-		HashSet<String> fathers = new HashSet<>(); //guarda o nome de todos os barbaros que possuem filhos
+		HashSet<String> fathers = new HashSet<>(); //guarda o nome de todos os guerreiros que possuem algum filho
 		HashSet<String> childs = new HashSet<>(); //guarda o nome de todos os barbaros que possuem dad
 
 		String name,dad;
 		double valueF = 0;
 		//C:\Users\1513 IRON\.git\T1-TriboBarbara\casos
-		File arq = new File("C:\\Users\\Gustavo\\Desktop\\Algoritmos e Estrutura de Dados II\\T1-TriboBarbara\\casos", cTeste);
+		File arq = new File("C:\\Users\\1513 IRON\\.git\\T1-TriboBarbara\\casos", cTeste);
 	
 		System.out.println("\nCaso de teste escolhido foi: "+cTeste+"\n");
 

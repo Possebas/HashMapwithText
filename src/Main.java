@@ -14,7 +14,7 @@ public class Main {
 		String resposta;
 
 		//uma interface bem simples para o usuário escolher qual caso de teste deseja selecionar
-		//tanto as opções no vetor como a interface, não permitem o usuário "burlar" a escolha
+		//tanto as opções no vetor como a interface, não permitem o usuário "burlar" a escolha.
 		do {
 			resposta = (String)  JOptionPane.showInputDialog(null,
 					"Qual caso de teste deseja utilizar ?",
