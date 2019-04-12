@@ -18,19 +18,6 @@ public class Main {
 			opcoes,
 			"não");
 		} while (resposta.equals("") || resposta.equals("não"));
-		// write your code here
-		//Scanner keyB = new Scanner(System.in);
-		//System.out.println("Digite qual caso de teste deseja utilizar...");
-		/*
-		String caseTest = null;
-		while (caseTest == null || caseTest.equals("")) {
-			caseTest = JOptionPane.showInputDialog(" Qual caso de teste deseja utilizar ? ");
-			if (caseTest == null || caseTest.equals("")) {
-				JOptionPane.showMessageDialog(null,
-						"Não foi possível identificar o caso de teste");
-			}
-		}*/
-		//JOptionPane.showMessageDialog(null, "Seu nome é " + nome);
 		switch(resposta){
 			case ("casoMC4a.txt"): fileProcess.process("casoMC4a.txt");break;
 			case ("casoMC4b.txt"): fileProcess.process("casoMC4b.txt");break;

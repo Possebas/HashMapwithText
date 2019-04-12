@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class GeneralTree {
 
@@ -8,18 +8,11 @@ public class GeneralTree {
 
 		public Node father;
 		public String element;
-		public int terrace;
+		public double terrace;
 		public ArrayList<Node> subtrees;
 
-		public Node(String element, int terrace) {
+		public Node(String element, double terrace) {
 			father = null;
-			this.element = element;
-			this.terrace = terrace;
-			subtrees = new ArrayList<>();
-		}
-
-		public Node(Node father,String element, int terrace) {
-			this.father = father;
 			this.element = element;
 			this.terrace = terrace;
 			subtrees = new ArrayList<>();
@@ -27,14 +20,7 @@ public class GeneralTree {
 
 		public void addSubtree(Node n) {
 			n.father = this;
-			//String child = n.element;
 			subtrees.add(n);
-		}
-
-		public boolean removeSubtree(Node n) {
-			n.father = null;
-			//String child = n.element;
-			return subtrees.remove(n);
 		}
 
 		public Node getSubtree(int i) {
@@ -48,27 +34,18 @@ public class GeneralTree {
 			return this.subtrees.size();
 		}
 
-		public void setTerrace(int terrace) {
-			this.terrace = terrace;
-		}
+		public boolean isRoot() {
+			if (father == null)
+				return true;
 
-		public int getTerrace() {
-			return this.terrace;
+			return false;
 		}
-}
+	}
+
 	// Atributos
 	public Node root;
 	private int count;
 	public int terraceFather;
-
-
-	public int getTerraceFather() {
-		return terraceFather;
-	}
-
-	public void setTerraceFather(int terraceFather) {
-		this.terraceFather = terraceFather;
-	}
 
 	// Metodos
 	public GeneralTree() {
@@ -76,65 +53,44 @@ public class GeneralTree {
 		count = 0;
 	}
 
-	public String getRoot() {
-		if (isEmpty()) {
-			throw new EmptyTreeException("GetRoot failure");
-		}
-		return root.element;
-	}
-	public void setRoot(String element) {
-		if (isEmpty()) {
-			throw new EmptyTreeException("SetRoot failure");
-		}
-		root.element = element;
-	}
-
-	public boolean isRoot(String element) {
-		if (root != null) {
-			if (root.element.equals(element)) {
-				return true;
-			}
+	public boolean leaf(String name) {
+		Node n = searchNodeRef(name, root);
+		if (n != null) {
+			return n.getSubtreesSize() == 0;
 		}
 		return false;
 	}
 
-	public boolean isEmpty() {
-		return (root == null);
+	private ArrayList<Node> getLeaf() {
+		ArrayList<Node> leaves = new ArrayList<Node>();
+		getLeafReceiv(root, leaves);
+		return leaves;
 	}
 
-	public int size() {
-		return count;
-	}
+	private void getLeafReceiv(Node n, ArrayList<Node> leaves) {
+		if (n != null) {
+			if (n.getSubtreesSize() == 0)
+				leaves.add(n);
+			else {
+				for (int i = 0; i < n.getSubtreesSize(); i++) {
+					getLeafReceiv(n.getSubtree(i), leaves);
+				}
 
-	public void clear() {
-		root = null;
-		count = 0;
-	}
+			}
 
-	public String getFather(String element) {
-		Node n = searchNodeRef(element, root);
-		if (n == null || n.father == null) {
-			return null;
-		} else {
-			return n.father.element;
 		}
 	}
 
-	public boolean contains(String element) {
-		Node nAux = searchNodeRef(element, root);
-		return (nAux != null);
-	}
-
-	private Node searchNodeRef(String element, Node target) {
+	private Node searchNodeRef(String father, Node target) {
 		Node res = null;
 		if (target != null) {
-			if (element.equals(target.element)) {
+			if (father.equals(target.element)) {
 				res = target;
 			} else {
 				Node aux = null;
 				int i = 0;
 				while ((aux == null) && (i < target.getSubtreesSize())) {
-					aux = searchNodeRef(element, target.getSubtree(i));
+					aux = searchNodeRef(father, target.getSubtree(i));
 					i++;
 				}
 				res = aux;
@@ -143,21 +99,87 @@ public class GeneralTree {
 		return res;
 	}
 
-	public void add(String father, String element, int terrace) {
-        Node n = new Node(element,terrace);
-        Node nAux;
-        if(root == null){
-        	Node nPatrono = new Node(father,0);
-        	nPatrono.addSubtree(n);
-        	root = nPatrono;
-        } else {
-        	nAux = searchNodeRef(father, root);
-        	if (nAux != null){
-        		nAux.addSubtree(n);
-	        }
-        }
-        count++;
-    }
+	public void add(String root, TribeHashMap map, HashMap<String, Barbarian> guerreiros) {
+		String father = root;
+		ArrayList<String> Tribetree;
+		Tribetree = map.get(father);
+		if (Tribetree != null) {
+			for (String s : Tribetree) {
+				add(father,s, guerreiros.get(s).getTerrace());
+			}
+
+			Node aux = searchNodeRef(father, this.root);
+			int qntChild = aux.getSubtreesSize();
+			for (int i = 0; i < qntChild; i++) {
+				add(aux.getSubtree(i).element, map, guerreiros);
+			}
+		}
+	}
+
+	public boolean add(String father, String element, double terrace) {
+		Node n = new Node(element, terrace);
+		Node nAux;
+		boolean res = false;
+		if (father == null) {
+			if (root != null) {
+				n.addSubtree(n);
+				root.father = n;
+			}
+			root = n;
+			res = true;
+			count++;
+		} else {
+			nAux = searchNodeRef(father, root);
+			if (nAux != null) {
+				nAux.addSubtree(n);
+				n.father = nAux;
+				res = true;
+				count++;
+			}
+		}
+		return res;
+	}
+
+	private double terraRecebida(Node n, double terraceRcv) {
+		if (n.isRoot())
+			return terraceRcv + n.terrace / n.getSubtreesSize();
+		else {
+			return terraRecebida(n.father, (terraceRcv + (n.father.terrace / n.father.getSubtreesSize())));
+		}
+	}
+
+	public double calculaTerra()
+	{
+		double maior = 0;
+		ArrayList<Node> nodofolha = getNodosFolhas();
+		for(Node n: nodofolha) {
+			double terraceRec = n.terrace;
+			terraceRec = terraRecebida(n, terraceRec);
+			if(terraceRec > maior)
+				maior = terraceRec;
+		}
+		return maior;
+	}
+
+	private ArrayList<Node> getNodosFolhas()
+	{
+		ArrayList<Node> nleaf = new ArrayList<Node>();
+		getFolhaRecebido(root, nleaf);
+		return nleaf;
+	}
+
+	private void getFolhaRecebido(Node n, ArrayList<Node> nodeLeaf) {
+		if (n != null ){
+			if (n.getSubtreesSize() == 0)
+				nodeLeaf.add(n);
+			else {
+				for(int i=0; i<n.getSubtreesSize(); i++) {
+					getFolhaRecebido(n.getSubtree(i), nodeLeaf);
+				}
+			}
+		}
+
+	}
 
 	public ArrayList<String> positionsPre() {
 		ArrayList<String> lista = new ArrayList<>();
@@ -173,38 +195,4 @@ public class GeneralTree {
 			}
 		}
 	}
-
-//	public LinkedList<Node> listChild() {
-//		listChildAux(root, list);
-//		return list;
-//	}
-//
-//	private void listChildAux(Node n, LinkedList<Node> list) {
-//		if (n != null) {
-//			list.add(n);
-//			for (int i = 0; i < n.getSubtreesSize(); i++) {
-//				listChildAux(n.getSubtree(i), list);
-//			}
-//		}
-//	}
-
-//	public ArrayList<String> positionsWidth() {
-//		ArrayList<String> lista = new ArrayList<>();
-//
-//		QueueM<Node> fila = new QueueM<>();
-//		Node atual = null;
-//
-//		if (root != null) {
-//			fila.enqueue(root);
-//			while (!fila.isEmpty()) {
-//				atual = fila.dequeue();
-//				lista.add(atual.element);
-//				for (int i = 0; i < atual.getSubtreesSize(); i++) {
-//					fila.enqueue(atual.getSubtree(i));
-//				}
-//			}
-//		}
-//		return lista;
-//	}
-
 }
