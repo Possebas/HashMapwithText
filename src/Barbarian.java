@@ -1,4 +1,5 @@
 public class Barbarian {
+
     private String name;
     private String father;
     double terrace;
@@ -13,9 +14,11 @@ public class Barbarian {
     public String getName(){
         return name;
     }
+
     public String getFather(){
         return father;
     }
+
     public double getTerrace(){
         return terrace;
     }

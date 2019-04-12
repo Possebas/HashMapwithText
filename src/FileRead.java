@@ -9,21 +9,21 @@ import java.util.HashSet;
 
 public class FileRead {
 	public void process(String cTeste) {
-		long tempoInicio = System.currentTimeMillis();
+
+		long initTime = System.currentTimeMillis();
 
 		HashMap<String, Barbarian> warriors = new HashMap<>();
 		TribeHashMap nodes = new TribeHashMap();
 		HashSet<String> fathers = new HashSet<>(); //guarda o nome de todos os barbaros que possuem filhos
-		HashSet<String> childs = new HashSet<>(); //guarda o nome de todos os barbaros que possuem pai
+		HashSet<String> childs = new HashSet<>(); //guarda o nome de todos os barbaros que possuem dad
 
-		String nome;
-		String pai;
-		int valueF = 0;
-
-		File arq = new File("C:\\Users\\1513 IRON\\.git\\T1-TriboBarbara\\casos", cTeste);
+		String name,dad;
+		double valueF = 0;
+		//C:\Users\1513 IRON\.git\T1-TriboBarbara\casos
+		File arq = new File("C:\\Users\\Gustavo\\Desktop\\Algoritmos e Estrutura de Dados II\\T1-TriboBarbara\\casos", cTeste);
+	
 		System.out.println("\nCaso de teste escolhido foi: "+cTeste+"\n");
 
-		GeneralTree tree = new GeneralTree();
 		try {
 			//Indicamos o arquivo que será lido
 			FileReader fileReader = new FileReader(arq);
@@ -38,22 +38,20 @@ public class FileRead {
 			// enquanto ele seja diferente de null.
 			//O método readLine() devolve a linha na
 			// posicao do loop para a variavel linha.
-			int count = 0;
 			while (bufferedReader.ready()) {
 				//Aqui imprimimos a linha
-				valueF = Integer.valueOf(first);
+				valueF = Double.valueOf(first);
 				line = bufferedReader.readLine();
 				String[] array = line.split(" ");
-				int terrace = Integer.valueOf(array[2]);
+				double terrace = Double.valueOf(array[2]);
 
-				pai = array[0];
-				nome = array[1];
-				fathers.add(pai);
-				childs.add(nome);
+				dad = array[0];
+				name = array[1];
+				fathers.add(dad);
+				childs.add(name);
 
-				warriors.put(nome, new Barbarian(pai, nome, terrace));
-				nodes.put(pai, nome);
-				count ++;
+				warriors.put(name, new Barbarian(dad, name, terrace));
+				nodes.put(dad, name);
 			}
 			//liberamos o fluxo dos objetos ou fechamos o arquivo
 			fileReader.close();
@@ -62,28 +60,29 @@ public class FileRead {
 			e.printStackTrace();
 		}
 
-		String raiz = "";
+		String root = "";
 		for(String p : fathers)
 		{
 			if(!childs.contains(p))
-				raiz = p;
+				root = p;
 		}
-		warriors.put(raiz, new Barbarian(raiz, null, valueF));
-		ArrayList<Barbarian> folhas = new ArrayList<>();
-		folhas = nodes.calcula(raiz, warriors, folhas);
+		warriors.put(root, new Barbarian(root, null, valueF));
+		ArrayList<Barbarian> leafs = new ArrayList<>();
+		leafs = nodes.calcula(root, warriors, leafs);
 
-		Barbarian maior = new Barbarian("","",0);
-		for(Barbarian b : folhas)
+		Barbarian bigger = new Barbarian("","",0);
+		for(Barbarian b : leafs)
 		{
-			if(b.getTerrace()> maior.getTerrace())
-				maior = b;
+			if(b.getTerrace()> bigger.getTerrace())
+				bigger = b;
 		}
 
+		System.out.println("Nome do guerreiro da última geração com mais terras: " + bigger.getName() + "\nQuantidade de terras: " + (int)bigger.getTerrace());
 
-		System.out.println("Nome do guerreiro: " + maior.getName() + "\nQuantidade de terras: " + maior.getTerrace());
+		long endTime = System.currentTimeMillis();
+		long totalTime = endTime-initTime;
 
-		long tempoFinal = System.currentTimeMillis();
-		long tempoTotal = tempoFinal-tempoInicio;
-		System.out.println("\nTempo total de execução: " +tempoTotal+ " milissegundos");
+		System.out.println("\nTempo total de execução: "+totalTime+" milissegundos");
+
 	}
 }
