@@ -8,25 +8,25 @@ public class Main {
 		FileRead fileProcessor = new FileRead(); //objeto da classe leitora de arquivo
 
 		//vetor com os casos de testes possíveis
-		Object[] opcoes = { "casoMC4a.txt", "casoMC4b.txt", "casoMC8a.txt","casoMC8b.txt",
+		Object[] options = { "casoMC4a.txt", "casoMC4b.txt", "casoMC8a.txt","casoMC8b.txt",
 							"casoMC10a.txt", "casoMC10b.txt","casoMC12a.txt", "casoMC12b.txt",
 							"casoMC14a.txt", "casoMC14b.txt"};
-		String resposta;
+		String response;
 
 		//uma interface bem simples para o usuário escolher qual caso de teste deseja selecionar
 		//tanto as opções no vetor como a interface, não permitem o usuário "burlar" a escolha.
 		do {
-			resposta = (String)  JOptionPane.showInputDialog(null,
+			response = (String)  JOptionPane.showInputDialog(null,
 					"Qual caso de teste deseja utilizar ?",
 					"Pergunta",
 					JOptionPane.PLAIN_MESSAGE,
 					null,
-			opcoes,
+			options,
 			"não");
-		} while (resposta.equals("") || resposta.equals("não"));
+		} while (response.equals("") || response.equals("não"));
 
 		//um switch simples para selecionar e já executar o teste escolhido
-		switch(resposta){
+		switch(response){
 			case ("casoMC4a.txt"): fileProcessor.process("casoMC4a.txt");break;
 			case ("casoMC4b.txt"): fileProcessor.process("casoMC4b.txt");break;
 			case ("casoMC8a.txt"): fileProcessor.process("casoMC8a.txt");break;

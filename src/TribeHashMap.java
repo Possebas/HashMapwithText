@@ -31,7 +31,7 @@ public class TribeHashMap
      * Para isso, são passados três parâmetros: uma String contendo o pai, um HashMap contendo todos os bárbaros e um ArrayList
      * que irá conter só os bárbaros que não possuem nenhum filho.
      */
-	public ArrayList<Barbarian> calcula(String father, HashMap<String, Barbarian> warriors, ArrayList<Barbarian> leaves) {
+	public ArrayList<Barbarian> calculate(String father, HashMap<String, Barbarian> warriors, ArrayList<Barbarian> leaves) {
 		Barbarian biggestChild = new Barbarian("","",0);
 		ArrayList<String> children = data.get(father);
 		if(children == null) {
@@ -50,7 +50,7 @@ public class TribeHashMap
 					biggestChild = aux;
 				warriors.remove(s);
 				warriors.put(s, aux);
-				calcula(s, warriors, leaves);
+				calculate(s, warriors, leaves);
 			}
 		}
 

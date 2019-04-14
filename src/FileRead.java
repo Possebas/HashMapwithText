@@ -68,7 +68,7 @@ public class FileRead {
 		}
 		warriors.put(root, new Barbarian(root, null, valueF));
 		ArrayList<Barbarian> leafs = new ArrayList<>();
-		leafs = nodes.calcula(root, warriors, leafs);
+		leafs = nodes.calculate(root, warriors, leafs);
 
 		Barbarian bigger = new Barbarian("","",0);
 		for(Barbarian b : leafs)
