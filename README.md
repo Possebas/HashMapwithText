@@ -1,5 +1,5 @@
 # Trabalho 1 - Algoritmos e Estrututra de Dados 2 
-[Relatório PDF](encurtador.com.br/gpvM1)
+[Relatório PDF](https://drive.google.com/file/d/121jXQYjGoWLdlX2MIJvHCGtKXWR8xlkK/view?usp=sharing)
 
 Dentro da disciplina de Algoritmos e Estruturas de Dados II, o problema proposto é ajudar uma equipe de antropólogos a compreender o comportamento de uma antiga tribo bárbara. Para isso, deve-se analisar um conjunto de pergaminhos contendo costumes sobre os integrantes desta tribo, como por exemplo:
 
