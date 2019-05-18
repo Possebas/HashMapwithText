@@ -1,5 +1,19 @@
 # Trabalho 1 - Algoritmos e Estrututra de Dados 2 
-[Relatório PDF](https://drive.google.com/file/d/121jXQYjGoWLdlX2MIJvHCGtKXWR8xlkK/view?usp=sharing)
+[Report/Relatório PDF](https://drive.google.com/file/d/121jXQYjGoWLdlX2MIJvHCGtKXWR8xlkK/view?usp=sharing)
+
+Within the discipline of Algorithms and Data Structures II, the problem proposed is to help a team of anthropologists understand the behavior of an ancient barbarian tribe. For this, it is necessary to analyze a set of parchments containing customs on the members of this tribe, as for example:
+
+	1. The lands of a warrior are divided equally among the children when he dies.
+
+	2. Of course, a child can accumulate more land through conquest, purchase, marriage, during his life and with that he will leave more (or less) lands for his children.
+
+The goal at the end of parchment analysis is to answer the following question: "What is the warrior of the last generation of the tribe who owns the most land (and how much land)?"
+
+The received file is a sequence of lines where the first line tells the amount of lands of the first warrior. Each of the following lines is identified in three different parts, first describes a father, second a son, and the third, the amount of land the son has conquered / bought in his life.
+
+To solve the proposed problem, we will demonstrate the implementation used, as well as its methods and their explanations. Then the test cases to be chosen, as well as their results and the execution time of the proposed algorithm will be presented in this report, as well as the conclusions obtained during the work.
+
+
 
 Dentro da disciplina de Algoritmos e Estruturas de Dados II, o problema proposto é ajudar uma equipe de antropólogos a compreender o comportamento de uma antiga tribo bárbara. Para isso, deve-se analisar um conjunto de pergaminhos contendo costumes sobre os integrantes desta tribo, como por exemplo:
 
